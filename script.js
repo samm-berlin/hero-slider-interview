@@ -267,10 +267,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     // z-index
     newSlide.classList.remove("other");
+    newSlide.classList.remove("prev");
     newSlide.classList.add("next");
 
     const oldNextSlide = slides[(oldIndex + 1) % numberOfSlides];
     oldNextSlide.classList.remove("next");
+    oldNextSlide.classList.remove("prev");
     oldNextSlide.classList.add("other");
 
     newSlide.classList.remove("transform-outer-start");
@@ -278,11 +280,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     newSlideInner.classList.remove("transform-inner-start");
     newSlideInner.classList.add("transform-inner-end");
 
+    const oldPrevSlide = slides[(oldIndex - 1 + numberOfSlides) % numberOfSlides];
+    oldPrevSlide.classList.remove("next");
+    oldPrevSlide.classList.remove("prev");
+    oldPrevSlide.classList.add("other");
+
     // position oldIndex slide
     const oldSlide = slides[oldIndex];
     const oldSlideInner = oldSlide.getElementsByTagName("div")[0];
 
     oldSlide.classList.remove("prev");
+    oldSlide.classList.remove('next')
     oldSlide.classList.add("other");
 
     // move oldSlide to end position
@@ -345,6 +353,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (window.innerWidth < 1025) stopInterval();
     else startInterval();
   });
+
+
+  const maxWidthText = 544 //945 / 2 + window.innerWidth / 6 - 64;
+
+  const textDivs = hero.getElementsByClassName("text");
+  Array.from(textDivs).forEach((textDiv) => {
+    textDiv.style.maxWidth = `${maxWidthText}px`;
+    });
 
   const toggleBtn = document.getElementById("toggleBtn");
   toggleBtn &&
