@@ -181,8 +181,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var numberOfSlides = slides.length; // the number of slides
 
   function triggerAnimation() {
-    console.log("triggerAnimation", activeIndex.index);
-
     var prevSlide =
       slides[(activeIndex.index - 1 + numberOfSlides) % numberOfSlides];
     var currentSlide = slides[activeIndex.index];
