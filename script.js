@@ -11,131 +11,37 @@ var animation = {
 
 var sliderElements = [
   {
-    id: "slide-0",
-    boldTitle: "Gemeinsam",
-    restTitle: "für nachhaltige gesellschaftliche Entwicklung",
-    text: null,
-    frameLeft: {
-      backgroundColor: "orange",
-      img: null
-    },
-    frameRight: {
-      backgroundColor: "yellow",
-      img: null
-    },
     animation: {
-      animationDirection: "leftToRight",
       delay: 5000
     }
   },
   {
-    id: "slide-1",
-    boldTitle: "Gesicherte",
-    restTitle: "Grundversorgung",
-    text:
-      "Wir stärken Menschen und Organisationen, die bestehende Versorgungssysteme in Krisen und Konflikten verbessern. Denn gesicherte Lebensgrundlagen sind Vorraussetzung für Entwicklung.",
-    frameLeft: {
-      backgroundColor: "yellow",
-      img: null
-    },
-    frameRight: {
-      backgroundColor: "img",
-      img: ""
-    },
     animation: {
-      animationDirection: "leftToRight",
       delay: 5000
     }
   },
   {
-    id: "slide-2",
-    boldTitle: null,
-    restTitle: null,
-    text: null,
-    frameLeft: {
-      backgroundColor: "img",
-      img: ""
-    },
-    frameRight: {
-      backgroundColor: "blue",
-      img: null
-    },
     animation: {
-      animationDirection: "rightToLeft",
       delay: 3000
     }
   },
   {
-    id: "slide-3",
-    boldTitle: "Vernetzte",
-    restTitle: "Gesellschaften",
-    text:
-      "Wir verstärken Newtzwerke für innovatives und inklusives Lernen und Wissensaustausch. Weil nachhaltige Entwicklung nur gelingt, wenn alle gleichberechtigt teilhaben.",
-    frameLeft: {
-      backgroundColor: "blue",
-      img: null
-    },
-    frameRight: {
-      backgroundColor: "img",
-      img: ""
-    },
     animation: {
-      animationDirection: "leftToRight",
       delay: 5000
     }
   },
   {
-    id: "slide-4",
-    boldTitle: null,
-    restTitle: null,
-    text: null,
-    frameLeft: {
-      backgroundColor: "img",
-      img: ""
-    },
-    frameRight: {
-      backgroundColor: "green",
-      img: null
-    },
     animation: {
-      animationDirection: "rightToLeft",
       delay: 3000
     }
   },
   {
-    id: "slide-5",
-    boldTitle: "Klima und",
-    restTitle: "Nachhaltigkeit",
-    text:
-      "Mit sektorübergreifender Zusammenarbeit unterstützen wir die Transformation zu nachhaltigem Handeln. Für einen Gesunden Planeten und eine Lebenswerte Zukunft.",
-    frameLeft: {
-      backgroundColor: "green",
-      img: null
-    },
-    frameRight: {
-      backgroundColor: "img",
-      img: ""
-    },
     animation: {
-      animationDirection: "leftToRight",
       delay: 5000
     }
   },
   {
-    id: "slide-6",
-    boldTitle: null,
-    restTitle: null,
-    text: null,
-    frameLeft: {
-      backgroundColor: "img",
-      img: ""
-    },
-    frameRight: {
-      backgroundColor: "orange",
-      img: null
-    },
     animation: {
-      animationDirection: "leftToRight",
       delay: 3000
     }
   }
@@ -254,15 +160,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const newSlide = slides[newIndex];
     const newSlideInner = newSlide.getElementsByTagName("div")[0];
 
-    // if (newIndex === oldIndex + 1 || (oldIndex === numberOfSlides - 1 && newIndex === 0)) {
-    //     triggerAnimation()
-    //     setTimeout(() => {
-    //         startAnimations()
-    //     }, 500)
-    //     startInterval()
-    //     return
-    // }
-
     // z-index
     newSlide.classList.remove("other");
     newSlide.classList.remove("prev");
@@ -343,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  window.innerWidth > 1024 && startInterval();
+  window.innerWidth > 991.98 && startInterval();
 
   const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
 
@@ -384,7 +281,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }, 500);
 
   const arrowDownButton = hero.getElementsByClassName("arrow-down-button")[0];
-  console.log(arrowDownButton)
   arrowDownButton &&
     arrowDownButton.addEventListener("click", function () {
       console.log('asdf')
@@ -393,14 +289,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
         top: heroHeight + 80,
         behavior: "smooth",
       });
-    });
-     
-
-  const toggleBtn = document.getElementById("toggleBtn");
-  toggleBtn &&
-    toggleBtn.addEventListener("click", function () {
-      clearInterval(animationIntervalId);
-      isRunning = false;
-      toggleBtn.innerText = "Resume";
     });
 });
