@@ -345,20 +345,36 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   window.innerWidth > 1024 && startInterval();
 
+  const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2;
+
+  const titleDivs = hero.getElementsByClassName("title");
+  Array.from(titleDivs).forEach((titleDiv) => {
+    titleDiv.style.maxWidth = `${maxWidthText}px`;
+  });
+
+
   // eventlistener on resize
   window.addEventListener("resize", function () {
     // if window size is smaller than 1025px stop Interval if it is running
     if (window.innerWidth < 1025) stopInterval();
     else startInterval();
+
+    const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2;
+    const titleDivs = hero.getElementsByClassName("title");
+    Array.from(titleDivs).forEach((titleDiv) => {
+      titleDiv.style.maxWidth = `${maxWidthText}px`;
+      });
   });
 
 
-  const maxWidthText = 544 //945 / 2 + window.innerWidth / 6 - 64;
+
 
   const textDivs = hero.getElementsByClassName("text");
   Array.from(textDivs).forEach((textDiv) => {
-    textDiv.style.maxWidth = `${maxWidthText}px`;
+    textDiv.style.maxWidth = `544px`;
     });
+
+
 
   const toggleBtn = document.getElementById("toggleBtn");
   toggleBtn &&
