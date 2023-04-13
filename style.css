@@ -1,8 +1,15 @@
 /* font-face SiemensSans Roman otf */
 @font-face {
-  font-family: 'SiemensSans';
-  src: url('assets/fonts/SiemensSans-Regular.otf') format('opentype');
+  font-family: 'siemenssans-roman';
+  src: url('assets/fonts/SiemensSans-Roman.otf') format('opentype');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'siemenssans-bold';
+  src: url('assets/fonts/SiemensSans-Bold.otf') format('opentype');
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -183,7 +190,8 @@ body {
   margin-top: 3.4375vw !important; /* 65px; */
   margin-top: 66px !important;
   font-weight: 500;
-  font-family: 'SiemensSans';
+  font-family: 'siemenssans-bold', 'siemenssans-roman' !important;
+  letter-spacing: -0.021em;
 }
 
 .hero-slider .title .bold {
@@ -196,7 +204,7 @@ body {
   font-size: 26px !important;
   line-height: 1.667vw !important; /* 32px; */
   line-height: 32px !important;
-  font-family: 'SiemensSans';
+  font-family: 'siemenssans-roman' !important;
 }
 
 .hero-slider .hero-slider-button {
@@ -245,6 +253,10 @@ body {
 }
 
 @media only screen and (max-width: 1024px) {
+  .hero-slider {
+    height: 100%;
+  }
+
   .hero-slider .hide-mobile {
     display: none !important;
   }
@@ -261,6 +273,10 @@ body {
   .hero-slider .transform-inner-start {
     transform: translateX(0%) !important;
     -webkit-transform: translateX(0%) !important;
+  }
+
+  .hero-slider .content {
+    position: unset;
   }
 
   .hero-slider .slide-0 .big-slide {
