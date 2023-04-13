@@ -356,7 +356,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // eventlistener on resize
   window.addEventListener("resize", function () {
     // if window size is smaller than 1025px stop Interval if it is running
-    if (window.innerWidth < 1025) stopInterval();
+    if (window.innerWidth < 1025) {
+      stopInterval();
+      return;
+    }
     else startInterval();
 
     const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
@@ -367,14 +370,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
 
+  // after 500 ms start the animation
+  setTimeout(() => {
+    Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
+      slide.classList.add('trans-mobile')
+    })
+  }, 500);
 
-
-  const textDivs = hero.getElementsByClassName("text");
-  Array.from(textDivs).forEach((textDiv) => {
-    textDiv.style.maxWidth = `544px`;
+  const arrowDownButton = hero.getElementsByClassName("arrow-down-button")[0];
+  console.log(arrowDownButton)
+  arrowDownButton &&
+    arrowDownButton.addEventListener("click", function () {
+      console.log('asdf')
+      const heroHeight = hero.clientHeight;
+      window.scrollTo({
+        top: heroHeight + 80,
+        behavior: "smooth",
+      });
     });
-
-
+     
 
   const toggleBtn = document.getElementById("toggleBtn");
   toggleBtn &&
