@@ -352,11 +352,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     titleDiv.style.maxWidth = `${maxWidthText}px`;
   });
 
+  const initialLoadIsMobile = window.innerWidth < 991.99;
+
 
   // eventlistener on resize
   window.addEventListener("resize", function () {
+    if (initialLoadIsMobile !== window.innerWidth < 991.99) {
+     window.location.reload();
+    }
+
     // if window size is smaller than 1025px stop Interval if it is running
-    if (window.innerWidth < 1025) {
+    if (window.innerWidth < 991.99) {
       stopInterval();
       return;
     }

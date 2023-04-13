@@ -272,7 +272,7 @@ body {
   z-index: 10;
 }
 
-@media screen and (min-width: 991.97px) {
+@media screen and (min-width: 991.99px) {
   .hero-slider .hide-desktop {
     display: none !important;
   }
@@ -375,7 +375,7 @@ body {
   .hero-slider .mobile-opposite .title {
     width: 160px;
     margin-left: auto !important;
-    margin-right: -21px !important;
+    margin-right: -21px !important; 
   }
 
   .hero-slider .mobile-button-container {
