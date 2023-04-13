@@ -13,6 +13,12 @@
   font-style: normal;
 }
 
+/* Overrides of Site */
+
+.main-container.full-picture-header > .header > .full-picture-carousel {
+  height: auto !important;
+}
+
 body {
   margin: 0;
 }
