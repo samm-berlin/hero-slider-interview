@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   window.innerWidth > 1024 && startInterval();
 
-  const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2;
+  const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
 
   const titleDivs = hero.getElementsByClassName("title");
   Array.from(titleDivs).forEach((titleDiv) => {
@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (window.innerWidth < 1025) stopInterval();
     else startInterval();
 
-    const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2;
+    const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
     const titleDivs = hero.getElementsByClassName("title");
     Array.from(titleDivs).forEach((titleDiv) => {
       titleDiv.style.maxWidth = `${maxWidthText}px`;
