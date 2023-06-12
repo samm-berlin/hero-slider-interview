@@ -13,6 +13,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'siemenssans-black';
+  src: url('assets/fonts/SiemensSans-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 /* Overrides of Site */
 
 .main-container.full-picture-header > .header > .full-picture-carousel {
@@ -185,7 +192,7 @@
 }
 
 .hero-slider .title .bold {
-  font-family: 'siemenssans-bold' !important;
+  font-family: 'siemenssans-black' !important;
   font-weight: 900;
 }
 
