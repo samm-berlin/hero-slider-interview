@@ -290,6 +290,11 @@
 
   .hero-slider .hero-slider-button {
     margin-bottom: 50px;
+    padding: 12px 18px;
+  }
+
+  .hero-slider .hero-slider-button::after {
+    margin-left: 48px;
   }
 
   .hero-slider .title {
