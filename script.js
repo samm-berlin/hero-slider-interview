@@ -240,7 +240,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  window.innerWidth > 991.98 && startInterval();
+  const initialLoadIsMobile = window.innerWidth < 781
+
+  !initialLoadIsMobile && startInterval()
 
   const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
 
@@ -249,17 +251,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     titleDiv.style.maxWidth = `${maxWidthText}px`;
   });
 
-  const initialLoadIsMobile = window.innerWidth < 991.99;
-
 
   // eventlistener on resize
   window.addEventListener("resize", function () {
-    if (initialLoadIsMobile !== window.innerWidth < 991.99) {
-     window.location.reload();
-    }
 
     // if window size is smaller than 1025px stop Interval if it is running
-    if (window.innerWidth < 991.99) {
+    if (window.innerWidth < 781) {
       stopInterval();
       return;
     }
@@ -272,13 +269,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
       });
   });
 
+  let isMobile = window.innerWidth < 781
 
   // after 500 ms start the animation
   setTimeout(() => {
-    Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
-      slide.classList.add('trans-mobile')
-    })
+    if (isMobile) {
+      Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
+        slide.classList.add('transition')
+        slide.classList.add('trans-mobile')
+      })
+    }
   }, 500);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 781) {
+      if (!isMobile) {
+        Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
+          slide.classList.add('transition')
+          slide.classList.add('trans-mobile')
+        })
+      }
+      isMobile = true
+    } else {
+      if (isMobile) {
+        Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
+          slide.classList.remove('transition')
+          slide.classList.remove('trans-mobile')
+        })
+        isMobile = false
+      }
+    }
+  })
 
   const arrowDownButton = hero.getElementsByClassName("arrow-down-button")[0];
   arrowDownButton &&
