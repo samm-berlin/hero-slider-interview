@@ -22,7 +22,7 @@ var sliderElements = [
   },
   {
     animation: {
-      delay: 3000
+      delay: 5000
     }
   },
   {
@@ -30,21 +30,6 @@ var sliderElements = [
       delay: 5000
     }
   },
-  {
-    animation: {
-      delay: 3000
-    }
-  },
-  {
-    animation: {
-      delay: 5000
-    }
-  },
-  {
-    animation: {
-      delay: 3000
-    }
-  }
 ];
 
 document.addEventListener("DOMContentLoaded", function (event) {
