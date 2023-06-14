@@ -49,7 +49,7 @@ var sliderElements = [
 
 document.addEventListener("DOMContentLoaded", function (event) {
   // get the hero element
-  var hero = document.getElementById("samm-hero-slider");
+  var hero = document.getElementById("samm-hero-slider-interview");
   // get the hero images
   var slides = hero.getElementsByClassName("slide");
 
