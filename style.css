@@ -234,12 +234,14 @@
 
 .hero-slider-interview .pill-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; 
   margin-top: 2.5vw;
   position: absolute;
   bottom: 2.5vw;
-  right: calc(33.3% + 64px);
+  left: 50%;
   z-index: 10;
+  width: 945px; 
+  transform: translate(-50%);
 }
 
 @media screen and (min-width: 781px) {
