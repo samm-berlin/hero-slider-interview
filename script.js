@@ -116,9 +116,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     nextSlideOuter.classList.remove("transform-outer-start");
     nextSlideOuter.classList.add("transform-outer-end");
 
-    console.log('hallo')
-    console.log(activeIndex.index)
-
     // update the activeIndex
     if (!isMobile) {
       activeIndex.index = (activeIndex.index + 1) % numberOfSlides
@@ -256,6 +253,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   startInterval()
+
+  let startX, startY
+
+  hero.addEventListener("touchstart", (e) => {
+    stopInterval();
+    startX = e.touches[0].clientX
+    startY = e.touches[0].clientY
+    console.log('touchstart', startX)
+  })
+
+  hero.addEventListener("touchend", (e) => {
+    const threshold = 50
+    const distX = e.changedTouches[0].clientX - startX
+    const distY = e.changedTouches[0].clientY - startY
+    if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > threshold)
+      if (distX > 0) {
+        console.log('triggering anim')
+        
+      } else {
+        triggerAnimation()
+      }
+      
+    startInterval()
+  })
 
   const buttonStartStop = document.querySelector(".button-start-stop");
 
