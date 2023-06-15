@@ -72,6 +72,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var numberOfSlides = slides.length; // the number of slides
 
   function triggerAnimation() {
+
+    var isMobile = window.innerWidth < 781;
+    if (isMobile) {
+      activeIndex.index = (activeIndex.index + 1) % numberOfSlides}
+
+    var prevPrevSlide = slides[(activeIndex.index - 2 + numberOfSlides) % numberOfSlides];
     var prevSlide =
       slides[(activeIndex.index - 1 + numberOfSlides) % numberOfSlides];
     var currentSlide = slides[activeIndex.index];
@@ -83,9 +89,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var slideAfterNextSlideOuter =
       slides[(activeIndex.index + 2) % numberOfSlides];
 
+    prevPrevSlide.classList.remove("other-lower");
+
     // set the z-index of the previous slide to 0
     prevSlide.classList.remove("prev");
     prevSlide.classList.add("other");
+    prevSlide.classList.add("other-lower");
 
     // move the sliderAfterNextSlide to the start position
     slideAfterNextSlideInner.classList.remove("transform-inner-end");
@@ -107,10 +116,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     nextSlideOuter.classList.remove("transform-outer-start");
     nextSlideOuter.classList.add("transform-outer-end");
 
+    console.log('hallo')
+    console.log(activeIndex.index)
+
     // update the activeIndex
-    activeIndex.index = (activeIndex.index + 1) % numberOfSlides;
-    stopInterval();
-    startInterval(sliderElements[activeIndex.index].animation.delay);
+    if (!isMobile) {
+      activeIndex.index = (activeIndex.index + 1) % numberOfSlides
+    }
   }
 
   function stopAnimations() {
@@ -145,6 +157,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const newSlide = slides[newIndex];
     const newSlideInner = newSlide.getElementsByTagName("div")[0];
 
+    // turn off mobile transition 
+    Array.from(slides).forEach(slide => {
+      slide.querySelector('.big-slide').classList.add('no-transition');
+      slide.querySelector('.small-slide').classList.add('no-transition');
+    });
+
+    const beforeNewSlide = slides[(newIndex - 1 + numberOfSlides) % numberOfSlides];
+    beforeNewSlide.classList.add("other-lower");
+
     // z-index
     newSlide.classList.remove("other");
     newSlide.classList.remove("prev");
@@ -168,6 +189,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // position oldIndex slide
     const oldSlide = slides[oldIndex];
     const oldSlideInner = oldSlide.getElementsByTagName("div")[0];
+
+    const beforeOldSlide = slides[(oldIndex - 1 + numberOfSlides) % numberOfSlides];
+    beforeOldSlide.classList.remove("other-lower");
 
     oldSlide.classList.remove("prev");
     oldSlide.classList.remove('next')
@@ -198,8 +222,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     nextSlideOuter.classList.remove("other");
     nextSlideOuter.classList.remove("prev");
 
+
     // restart Animations
     setTimeout(() => {
+      // turn on mobile transition
+      Array.from(slides).forEach(slide => {
+        slide.querySelector('.big-slide').classList.remove('no-transition');
+        slide.querySelector('.small-slide').classList.remove('no-transition');
+      });
       startAnimations();
     }, 500);
     startInterval();
@@ -225,9 +255,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  const initialLoadIsMobile = window.innerWidth < 781
+  startInterval()
 
-  !initialLoadIsMobile && startInterval()
+  const buttonStartStop = document.querySelector(".button-start-stop");
+
+  buttonStartStop.addEventListener("click", function () {
+    if (isRunning) {
+      stopInterval();
+      buttonStartStop.innerHTML = "Start";
+    } else {
+      startInterval();
+      buttonStartStop.innerHTML = "Stop";
+    }
+  })
 
   const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
 
@@ -239,52 +279,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // eventlistener on resize
   window.addEventListener("resize", function () {
-
-    // if window size is smaller than 1025px stop Interval if it is running
-    if (window.innerWidth < 781) {
-      stopInterval();
-      return;
-    }
-    else startInterval();
-
     const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
     const titleDivs = hero.getElementsByClassName("title");
     Array.from(titleDivs).forEach((titleDiv) => {
       titleDiv.style.maxWidth = `${maxWidthText}px`;
       });
   });
-
-  let isMobile = window.innerWidth < 781
-
-  // after 500 ms start the animation
-  setTimeout(() => {
-    if (isMobile) {
-      Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
-        slide.classList.add('transition')
-        slide.classList.add('trans-mobile')
-      })
-    }
-  }, 500);
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth < 781) {
-      if (!isMobile) {
-        Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
-          slide.classList.add('transition')
-          slide.classList.add('trans-mobile')
-        })
-      }
-      isMobile = true
-    } else {
-      if (isMobile) {
-        Array.from(hero.getElementsByClassName('big-slide')).forEach((slide) => {
-          slide.classList.remove('transition')
-          slide.classList.remove('trans-mobile')
-        })
-        isMobile = false
-      }
-    }
-  })
 
   const arrowDownButton = hero.getElementsByClassName("arrow-down-button")[0];
   arrowDownButton &&
