@@ -206,6 +206,24 @@
   font-weight: 900;
 }
 
+.hero-slider-interview .quote {
+  color: black;
+  font-size: 35px !important;
+  line-height: 43px !important;
+  margin: 0 !important;
+  margin-bottom: 50px !important; /* 50px;*/
+  margin-top: 0 !important; /* 65px; */
+  font-weight: 400;
+  font-family:  'siemenssans-roman' !important;
+  letter-spacing: -0.016em;
+  padding-left: 55px;
+}
+
+.hero-slider-interview .title .bold {
+  font-family: 'siemenssans-black' !important;
+  font-weight: 900;
+}
+
 @media screen and (min-width: 1920px ) {
   /* .hero-slider-interview .title {
     font-size: 90px !important;
