@@ -73,6 +73,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   function triggerAnimation() {
 
+    blockSwipe = true
+    setTimeout(() => {
+      blockSwipe = false
+    }, 1000)
     var isMobile = window.innerWidth < 781;
     if (isMobile) {
       activeIndex.index = (activeIndex.index + 1) % numberOfSlides}
@@ -140,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  function setAnimationToIndex(oldIndex, newIndex) {
+  function setAnimationToIndex(oldIndex, newIndex, mobileTransition = false) {
     stopInterval();
     stopAnimations();
 
@@ -151,14 +155,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     // position newIndex slide
-    const newSlide = slides[newIndex];
+    const newSlide = slides[(newIndex + numberOfSlides) % numberOfSlides]; 
+
     const newSlideInner = newSlide.getElementsByTagName("div")[0];
 
-    // turn off mobile transition 
-    Array.from(slides).forEach(slide => {
-      slide.querySelector('.big-slide').classList.add('no-transition');
-      slide.querySelector('.small-slide').classList.add('no-transition');
-    });
+    if (!mobileTransition) {
+      Array.from(slides).forEach(slide => {
+        slide.querySelector('.big-slide').classList.add('no-transition');
+        slide.querySelector('.small-slide').classList.add('no-transition');
+      })
+    }
 
     const beforeNewSlide = slides[(newIndex - 1 + numberOfSlides) % numberOfSlides];
     beforeNewSlide.classList.add("other-lower");
@@ -208,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     nextSlideInner.classList.add("transform-inner-start");
     nextSlideOuter.classList.remove("transform-outer-end");
     nextSlideOuter.classList.add("transform-outer-start");
-
+ 
     // set newSlide to prev
     newSlide.classList.add("prev");
     newSlide.classList.remove("other");
@@ -219,14 +225,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     nextSlideOuter.classList.remove("other");
     nextSlideOuter.classList.remove("prev");
 
-
     // restart Animations
     setTimeout(() => {
       // turn on mobile transition
-      Array.from(slides).forEach(slide => {
-        slide.querySelector('.big-slide').classList.remove('no-transition');
-        slide.querySelector('.small-slide').classList.remove('no-transition');
-      });
+      if (!mobileTransition) {
+        Array.from(slides).forEach(slide => {
+          slide.querySelector('.big-slide').classList.remove('no-transition');
+          slide.querySelector('.small-slide').classList.remove('no-transition');
+        })
+      }
       startAnimations();
     }, 500);
     startInterval();
@@ -254,13 +261,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   startInterval()
 
+  let blockSwipe = false
   let startX, startY
 
   hero.addEventListener("touchstart", (e) => {
     stopInterval();
     startX = e.touches[0].clientX
     startY = e.touches[0].clientY
-    console.log('touchstart', startX)
   })
 
   hero.addEventListener("touchend", (e) => {
@@ -269,12 +276,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const distY = e.changedTouches[0].clientY - startY
     if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > threshold)
       if (distX > 0) {
-        console.log('triggering anim')
-        
+        if (blockSwipe) return
+        blockSwipe = true
+        setAnimationToIndex(activeIndex.index, activeIndex.index - 1, true)
+        activeIndex.index = (activeIndex.index - 1 + numberOfSlides) % numberOfSlides
+        setTimeout(() => {
+          blockSwipe = false
+        }, 1000)
       } else {
+        if (blockSwipe) return
+        blockSwipe = true
         triggerAnimation()
+        setTimeout(() => {
+          blockSwipe = false
+        }, 1000)
       }
-      
     startInterval()
   })
 
@@ -289,32 +305,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
       buttonStartStop.innerHTML = "Stop";
     }
   })
-
-  const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
-
-  const titleDivs = hero.getElementsByClassName("title");
-  Array.from(titleDivs).forEach((titleDiv) => {
-    titleDiv.style.maxWidth = `${maxWidthText}px`;
-  });
-
-
-  // eventlistener on resize
-  window.addEventListener("resize", function () {
-    const maxWidthText = window.innerWidth * (2 / 3 - 1 / 2 ) + 945 / 2 - 64;
-    const titleDivs = hero.getElementsByClassName("title");
-    Array.from(titleDivs).forEach((titleDiv) => {
-      titleDiv.style.maxWidth = `${maxWidthText}px`;
-      });
-  });
-
-  const arrowDownButton = hero.getElementsByClassName("arrow-down-button")[0];
-  arrowDownButton &&
-    arrowDownButton.addEventListener("click", function () {
-      console.log('asdf')
-      const heroHeight = hero.clientHeight;
-      window.scrollTo({
-        top: heroHeight + 80,
-        behavior: "smooth",
-      });
-    });
 });

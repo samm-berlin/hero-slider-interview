@@ -346,12 +346,11 @@
 
   .hero-slider-interview .next .big-slide {
     transform:translateX(100%);
-    transition: unset;
+    
   }
 
   .hero-slider-interview .next .small-slide {
     transform:translateX(-100%);
-    transition: unset; 
   }
 
   .hero-slider-interview .other :not(.other-lower) .big-slide {
@@ -363,7 +362,7 @@
   }
 
   .hero-slider-interview .other-lower {
-    z-index: -2;
+    z-index: -2; 
   }
 
   .hero-slider-interview .content {
